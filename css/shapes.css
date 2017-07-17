@@ -1,0 +1,12 @@
+canvas { 
+	border: 2px solid rgba(0, 0, 255, 0.35); 
+	border-radius: 10px;
+  
+	-webkit-box-shadow: 9px 7px 14px 2px rgba(0,0,0,0.25);
+	-moz-box-shadow: 9px 7px 14px 2px rgba(0,0,0,0.25);
+	box-shadow: 9px 7px 14px 2px rgba(0,0,0,0.25);
+}
+
+body {
+    padding-top: 10px;
+}

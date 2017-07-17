@@ -1,0 +1,191 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* ---------- GENERAL ---------- */
+
+hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	background: #cccccc;
+	border: 0;
+	height: 1px;
+}
+
+myhr {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background: #cccccc;
+	border: 0;
+	height: 1px;
+}
+
+body {
+	font: 16px/1.5em "Open Sans", sans-serif;
+	margin: 0;
+}
+
+.clearfix { *zoom: 1; } /* For IE 6/7 */
+.clearfix:before, .clearfix:after {
+	content: "";
+	display: table;
+}
+.clearfix:after { clear: both; }
+
+/* ---------- COLOR-PALETTE ---------- */
+
+.color-palette {
+	background: #fff;
+	border-radius: 5px;
+	margin: 10px auto;
+	padding: 10px;
+	position: relative;
+	width: 205px;
+	border: 1px solid #ccc;
+}
+
+/*ucgen kisim var*/
+.color-palette:before {
+	background: #ffffff;
+	content: "";
+	height: 12px;
+	left: 12%;
+	margin: -4px 0 0 -4px;
+	position: absolute;
+	border: 1px solid #ccc;
+	
+	top: -2px;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	width: 12px;
+}
+
+/*kare kisim var altta*/
+.color-palette:after {  
+	background: #ffffff;
+	content: "";
+	height: 12px;
+	width: 22px;
+
+	left: 10%;
+	margin: -4px 0 0 -4px;
+	position: absolute;
+	border: 0px solid #ccc;
+	
+	top: 4px;
+	
+}
+
+.color-palette h2 {
+	color: #696969;
+	font-size: 16px;
+}
+
+.color-container {
+	margin: -4px 0;
+	width: 180px;
+}
+
+.color-container:first-child { margin-top: 0; }
+.color-container:last-child { margin-bottom: 0; }
+
+.color-container h3 {
+	color: #696969;
+	font-size: 14px;
+	margin-bottom: 3px;
+}
+
+.color-container .color:first-of-type {
+	border-radius: 3px 0 0 3px;
+}
+
+.color-container .color:last-of-type {
+	border-radius: 0 3px 3px 0;
+}
+
+.width10 .color { width: 10%; }
+.width6 .color { width: 16.67%; }
+.width5 .color { width: 20%; }
+.width4 .color { width: 25%; }
+.width3 .color { width: 33.3%; }
+.width2 .color { width: 50%; }
+.width1 .color { width: 100%; }
+
+.color {
+	display: block;
+	float: left;
+	height: 24px;
+}
+
+/*STANDART*/  
+/*https://codepen.io/mehmetakifakkus/pen/NgJVxa */
+
+.c000000 { background: #000000; }
+.c444444 { background: #444444; }
+.c808080 { background: #808080; }
+.ca5a3a3 { background: #a5a3a3; }
+.cd0d0d0 { background: #d0d0d0; }
+
+/* REDDISH */
+.cD12013 { background: #D12013;}
+.cE53427 { background: #E53427;}
+.cF44336 { background: #F44336;}
+.cFF5C4F { background: #FF5C4F;}
+.cFF6659 { background: #FF6659;}
+
+/* PINKISH */
+.cC60040 { background: #C60040;}
+.cDA0F54 { background: #DA0F54;}
+.cE91E63 { background: #E91E63;}
+.cF3286D { background: #F3286D;}
+.cFF4186 { background: #FF4186;}
+
+/* PURPLE */
+.c830E97 { background: #830E97;}
+.cBF4AD3 { background: #BF4AD3;}
+.c441794 { background: #441794;}
+.c673AB7 { background: #673AB7;}
+.c8A5DDA { background: #8A5DDA;}
+
+/*BLUEISH*/
+.c1C2E92 { background: #1C2E92;}
+.c2B3DA1 { background: #2B3DA1;}
+.c4456BA { background: #4456BA;}
+.c0073D0 { background: #0073D0;}
+.c2196F3 { background: #2196F3;}
+.c26CCFF { background: #26CCFF;}
+
+/* GREEN */
+.c007365 { background: #007365;}
+.c009688 { background: #009688;}
+.c298C2D { background: #298C2D;}
+.c4CAF50 { background: #4CAF50;}
+.c68A027 { background: #68A027;}
+.c9AD259 { background: #9AD259;}
+
+/* YELLOW */
+.cF5E131 { background: #F5E131;}
+.cFFF545 { background: #FFF545;}
+.cFFFF59 { background: #FFFF59;}
+.cF0FF5C { background: #F0FF5C;}
+.cCDDC39 { background: #CDDC39;}
+
+/* ORANGE */
+.ce8b830 { background: #e8b830; }
+.ce48831 { background: #e48831; }
+.cd84c35 { background: #d84c35; }
+.c9e3c2f { background: #9e3c2f; }
+
+/* WINTER */
+.c020c17 { background: #020c17; }
+.c021325 { background: #021325; }
+.c00353d { background: #00353d; }
+.c006063 { background: #006063; }
+.c018687 { background: #018687; }
+
+/* RETRO */
+.cadcd37 { background: #adcd37; }
+.cfa5735 { background: #fa5735; }
+.c37ac72 { background: #37ac72; }
