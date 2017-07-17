@@ -190,26 +190,22 @@ function onKeyDown(evt) {
 //////////////////////////////  Select Background Part  //////////////////////////////
 
 backgrounds = [
-	{name: 'Basic notepad', link:'images/noteBackground1.jpeg', settings: {scaleCons: 0.65, translate: [-100, -240]}, screenSize: {height: 800, width: 960}, opacity: 0.85},
+	{name: 'Empty notepad', link:'', settings: {scaleCons: 1, translate: [0, 0]}, screenSize: {height: 1200, width: 1170}, opacity: 1},
+	{name: 'Basic notepad', link:'images/noteBackground1.jpeg', settings: {scaleCons: 0.68, translate: [-120, -230]}, screenSize: {height: 780, width: 960}, opacity: 0.85},
 	{name: 'Linear notepad', link:'images/noteBackground2.jpeg', settings: {scaleCons: 1.3, translate: [+340, -5]}, screenSize: {height: 1200, width: 1170}, opacity: 0.85},
 	{name: 'Squared notepad', link:'images/noteBackground3.jpeg', settings: {scaleCons: 1, translate: [12, 0]}, screenSize: {height: 1200, width: 1170}, opacity: 0.75},
 	{name: 'Stylish notepad', link:'images/noteBackground4.jpeg', settings: {scaleCons: 0.93, translate: [-10,-135]}, screenSize: {height: 935, width: 1170}, opacity: 0.75}
 	]
 
 window.drawBackground = function(num){	
-	
-	if(num == -1)
-	{
-		if(backgroundImage)
-			backgroundImage.remove();
-		view.update();
-		return;
-	}
-	
+
 	var link = backgrounds[num].link
 	var scaleCons = backgrounds[num].settings.scaleCons;
 	var scr = backgrounds[num].screenSize;
 	
+	document.getElementById("myCanvas0").height = scr.height;
+	document.getElementById("myCanvas0").width = scr.width;
+
 	if(backgroundImage)
 		backgroundImage.remove();
 
@@ -217,14 +213,12 @@ window.drawBackground = function(num){
 	backgroundImage.matrix = new Matrix(1*scaleCons, 0, 0, 1*scaleCons, view.center.x, view.center.y);
 	backgroundImage.translate(backgrounds[num].settings.translate)
 		
-	document.getElementById("myCanvas0").height = scr.height;
-	document.getElementById("myCanvas0").width = scr.width;
-	
+
 	backgroundImage.opacity = backgrounds[num].opacity;
 	backgroundImage.sendToBack();
 	view.update();
 }
-drawBackground(1);
+drawBackground(2);
 
 //////  My own functions ////////////////////////////////////////////////////////////
 
