@@ -1,7 +1,6 @@
-# Online Drawing / Skech Tool for Graphic Tablets
+# Genetic Algorithm Solution for Polygon Decomposition
+<img float="left" src="https://github.com/mehmetakifakkus/jslab/blob/v2/app/public/images/partitioning-thumbnail.png" width="200"/>This web application shows available sub-polygon decomposition of a simple polygon. You will immediately see the result exactly on the polygon.
 
-<img float="left" src="https://github.com/mehmetakifakkus/jslab/blob/v2/app/public/images/partitioning-thumbnail.png" width="200"/>
+This app is ultimately interactive. At first, it comes with default simple polygon. You can modify the polygon using hints at the bottom of the page.
 
-This app makes it possible to draw something like paint tool or take some notes. It can also save the projects as an PNG or SVG  image.  
-
-You can [visit this page](https://sketchnote.github.io/)
+You can [visit this page](https://mehmetakifakkus.github.io/partitioning/)

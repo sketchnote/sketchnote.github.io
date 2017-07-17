@@ -91,16 +91,7 @@ function mergeIfIntersects(myPath){
 	var ints = myPath.getIntersections(last);
 	console.log(ints.length)
 	
-	
-	if(ints.length > 0)
-	{
-		return new Group([last, myPath])
-	}
-	else 
-	{
-		return myPath;
-	}	
-	
+	return ints.length;
 }
 
 selectedItems = []
@@ -108,9 +99,7 @@ function onMouseUp(event) {
 	if(mode == 'pen'){			// drawing mode
 		
 		//differentSimplicity(myPath);
-		
-		mergeIfIntersects(myPath)
-		
+
 		myPath.smooth({type:'catmull-rom'});
 		myPath.simplify(8);
 
@@ -120,7 +109,10 @@ function onMouseUp(event) {
 			myPath = new Path.Circle({name: 'path',center: event.point, radius: 3, fillColor:'black'});
 		}
 
-		paths.push(myPath);
+		if(mergeIfIntersects(myPath) > 0)
+			paths.push(new Group([myPath, paths.last]));
+		else
+			paths.push(myPath);
 		redoBuffer = [];
 	}
 	else if(mode == 'move'){ 	// selection mode
