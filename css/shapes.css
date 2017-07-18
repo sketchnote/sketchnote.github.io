@@ -5,8 +5,10 @@ canvas {
 	-webkit-box-shadow: 9px 7px 14px 2px rgba(0,0,0,0.25);
 	-moz-box-shadow: 9px 7px 14px 2px rgba(0,0,0,0.25);
 	box-shadow: 9px 7px 14px 2px rgba(0,0,0,0.25);
+	background: white;
 }
 
 body {
-    padding-top: 10px;
+    padding-top: 20px;
+	background-image: url('../images/wood-texture.jpg');
 }

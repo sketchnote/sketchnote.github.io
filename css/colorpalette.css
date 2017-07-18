@@ -43,6 +43,16 @@ body {
 	border: 1px solid #ccc;
 }
 
+.color-palette2 {
+	background: #fff;
+	border-radius: 5px;
+	margin: 6px auto;
+	padding: 6px;
+	position: relative;
+	width: 106px;
+	border: 1px solid #ccc;
+}
+
 /*ucgen kisim var*/
 .color-palette:before {
 	background: #ffffff;

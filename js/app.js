@@ -6,7 +6,7 @@ var redoBuffer = []
 
 var backgroundImage = null, mode = 'pen';
 
-var hitPath, hitOptions = {segment: true, stroke: true,	fill: true,	tolerance: 6};
+var hitOptions = {segment: true, stroke: true,	fill: true,	tolerance: 6};
 
 function onMouseDown(event) {
 	if(mode == 'pen')	
@@ -16,10 +16,10 @@ function onMouseDown(event) {
 	 	myPath.name = 'path';
 	}
 	else if(mode == 'move')	
-	{	myPath = new Path({name: 'dashedPath', strokeColor: 'black', strokeWidth: 3, dashArray: [6, 4]});
+	{	dashedPath = new Path({name: 'dashedPath', strokeColor: 'black', strokeWidth: 3, dashArray: [6, 4]});
 	
 		// Remove the path, when the mouse is released:
-	 	myPath.removeOnUp();
+	 	dashedPath.removeOnUp();
 	 
 	 	if((event.modifiers.control || event.modifiers.command) && selectedItems.length > 0) // clone while dragging
 			for(var i=0; i<selectedItems.length; i++)  
@@ -27,21 +27,26 @@ function onMouseDown(event) {
 				selectedItems[i].selected = false;
 				var newItem = selectedItems[i].clone();
 				newItem.name = 'path';
-				//newItem.bringToFront();
-				
 				paths.push(newItem);
 			}
 	}	
 	
 	hitPath = project.hitTest(event.point, hitOptions).item;
-	pasteConstant = 1;
+	console.log(hitPath)
+	if(hitPath && hitPath.name == 'path')
+	{
+		deselectAllItems();
+
+		if(hitPath)
+			hitPath.selected = true;
+	}
 }
 
 function onMouseDrag(event) {
 	if(mode == 'pen')
 		myPath.add(event.point);
 	else if(mode == 'move')
-	{	
+	{
 		if(selectedItems.length > 0)      // selected items are moved
 		{
 			for(var i=0; i<selectedItems.length; i++)  
@@ -50,7 +55,7 @@ function onMouseDrag(event) {
 		else if (hitPath && hitPath.name == 'path')  //only clicked item is moved
 			hitPath.position += event.delta;
 		else
-			myPath.add(event.point); // it is selection with dashed line
+			dashedPath.add(event.point); // it is selection with dashed line
 	}
 	else if(mode == 'erase')
 	{
@@ -94,6 +99,31 @@ function mergeIfIntersects(myPath){
 	return ints.length;
 }
 
+function activateStyleButtons(){
+	//$("#penColor").addClass("active").removeClass('disabled');
+	$("#penWidth").addClass("active").removeClass('disabled');
+	$("#objectSize").addClass("active").removeClass('disabled');
+
+	//$("#styleEditPen").addClass("show").removeClass("hide");
+	$("#styleEditWidth").addClass("show").removeClass("hide");
+	$("#styleEditSize").addClass("show").removeClass("hide");
+}
+
+function disableStyleButtons(){
+	$("#penColor").addClass("disabled").removeClass('active');
+	$("#penWidth").addClass("disabled").removeClass('active');
+	$("#objectSize").addClass("disabled").removeClass('active');
+
+	$("#styleEditPen").className = "hide";
+	$("#styleEditWidth").className = "hide";
+	$("#styleEditSize").className = "hide";
+}
+
+function deselectAllItems(){
+	for(var i=0; i < paths.length ;i++)
+		paths[i].selected = false;
+}
+
 selectedItems = []
 function onMouseUp(event) {
 	if(mode == 'pen'){			// drawing mode
@@ -106,44 +136,51 @@ function onMouseUp(event) {
 		if(myPath.segments.length < 2)
 		{	
 			myPath.remove();
-			myPath = new Path.Circle({name: 'path',center: event.point, radius: 3, fillColor:'black'});
+			myPath = new Path.Circle({name: 'path',center: event.point, radius: 3, fillColor: penColor});
 		}
 
-		if(mergeIfIntersects(myPath) > 0)
-			paths.push(new Group([myPath, paths.last]));
-		else
+		var last = paths.last();
+		//if(mergeIfIntersects(myPath) > 0)
+		//	paths.push(new Group([myPath, last]));
+		//else
 			paths.push(myPath);
+
 		redoBuffer = [];
 	}
 	else if(mode == 'move'){ 	// selection mode
 		
-		if(myPath.length <= 3)
+
+		if(hitPath && hitPath.name == 'path')
 		{
-			for(var i=0; i < paths.length ;i++)
-				paths[i].selected = false;
-			
-			selectedItems = []
+			deselectAllItems();
+			hitPath.selected = true;
+			activateStyleButtons();
+			document.getElementById('myCanvas0').className = "canvasMove";
+		}
+		else if(dashedPath.length <= 3)
+		{
+			deselectAllItems();
+			disableStyleButtons();
+
 			document.getElementById('myCanvas0').className = "canvasDefault" 
 			
+			selectedItems = [];
 			return;
 		}
 			
 		for(var i=0; i < paths.length ;i++)			// find seleted items
 		{
-			myPath.closed = true;
-			var intersections = myPath.getIntersections(paths[i]);
+			dashedPath.closed = true;
+			var intersections = dashedPath.getIntersections(paths[i]);
 			
-			if(isContains(paths[i], myPath) || intersections.length > 0)
+			if(isContains(paths[i], dashedPath) || intersections.length > 0)
 			{
 				paths[i].selected = true;
 				selectedItems.push(paths[i]);
 				console.log(paths[i])
 			}
 		}
-		
-		if(selectedItems.length > 0)
-			document.getElementById('myCanvas0').className = "canvasMove" 
-		
+
 		console.log(selectedItems.length+' items are selected.')
 	}
 }
@@ -218,7 +255,7 @@ window.drawBackground = function(num){
 	backgroundImage.sendToBack();
 	view.update();
 }
-drawBackground(2);
+drawBackground(0);
 
 //////  My own functions ////////////////////////////////////////////////////////////
 
@@ -241,8 +278,8 @@ function removeClasses(){
 window.selectPen = function(){	
 	document.getElementById('myCanvas0').className = "canvasPen" 
 	
-	removeClasses();
-	$("#penButton").addClass("btn-primary")
+	removeClasses()
+	$("#penButton").addClass("btn-primary").removeClass("btn-secondary")
 	
 	mode = 'pen'
 }
@@ -250,9 +287,9 @@ window.selectPen = function(){
 window.selectMove = function(){
 	document.getElementById('myCanvas0').className = "canvasDefault" 
 	
-	removeClasses();
-	$("#moveButton").addClass("btn-primary")
-	
+	removeClasses()
+	$("#moveButton").addClass("btn-primary").removeClass("btn-secondary")
+
 	mode = 'move'
 }
 
@@ -261,6 +298,7 @@ window.selectEraser = function(){
 	
 	removeClasses();
 	$("#eraserButton").addClass("btn-primary")
+
 	mode = 'erase'
 }
 
@@ -273,6 +311,13 @@ window.restart = function(){
 	for(var i=0; i<paths.length; i++)
 		paths[i].remove();
 	
+	for(var i=0; i<redoBuffer.length; i++)
+		redoBuffer[i].remove();
+
+	redoBuffer = []
+	paths = []
+
+
 	view.update();
 }
 
@@ -300,16 +345,23 @@ window.forward = function(){
 
 window.changePenColor = function(color){
 	penColor = color;
-	$("#penColor").css('background-color', color);
+//	$("#penColor").css('background-color', color);
+	$("#penColor").css('color', color);
+
 	for(var i=0; i<selectedItems.length; i++)  
 		selectedItems[i].strokeColor = penColor;
+
+	hitPath.strokeColor = penColor;
 	view.update();
 }
 
 window.setWidth = function(width){
-	penWidth = width;
 	for(var i=0; i<selectedItems.length; i++)  
-		selectedItems[i].strokeWidth = penWidth;
+		selectedItems[i].strokeWidth = width;
+
+	$("#penWidth").css('opacity', 1);
+
+	hitPath.strokeWidth = width;
 	view.update();
 }
 
@@ -321,6 +373,8 @@ window.decreaseWidth = function(){
 	
 	console.log(group.bounds)
 	group.scale(0.9, group.bounds.center);
+	hitPath.scale(0.9, hitPath.bounds.center);
+
 	view.update();
 }
 
@@ -331,6 +385,7 @@ window.increaseWidth = function(){
 		group.addChild(selectedItems[i]);
 	
 	group.scale(1.1, group.bounds.center);
+	hitPath.scale(1.1, hitPath.bounds.center);
 	view.update();
 }
 
