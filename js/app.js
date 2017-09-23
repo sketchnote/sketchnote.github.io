@@ -10,13 +10,15 @@ var hitOptions = {segment: true, stroke: true,	fill: true,	tolerance: 6};
 
 function onMouseDown(event) {
 	if(mode == 'pen')	
-	{	myPath = new Path();
+	{
+		myPath = new Path();
 		myPath.strokeColor = penColor;
 		myPath.strokeWidth = penWidth;
 	 	myPath.name = 'path';
 	}
 	else if(mode == 'move')	
-	{	dashedPath = new Path({name: 'dashedPath', strokeColor: 'black', strokeWidth: 3, dashArray: [6, 4]});
+	{
+		dashedPath = new Path({name: 'dashedPath', strokeColor: 'black', strokeWidth: 3, dashArray: [6, 4]});
 	
 		// Remove the path, when the mouse is released:
 	 	dashedPath.removeOnUp();
@@ -110,13 +112,12 @@ function activateStyleButtons(){
 }
 
 function disableStyleButtons(){
-	$("#penColor").addClass("disabled").removeClass('active');
+	//$("#penColor").addClass("disabled").removeClass('active');
 	$("#penWidth").addClass("disabled").removeClass('active');
 	$("#objectSize").addClass("disabled").removeClass('active');
 
-	$("#styleEditPen").className = "hide";
-	$("#styleEditWidth").className = "hide";
-	$("#styleEditSize").className = "hide";
+	$("#styleEditWidth").addClass("hide").removeClass("show");
+	$("#styleEditSize").addClass("hide").removeClass("show");
 }
 
 function deselectAllItems(){
@@ -148,10 +149,12 @@ function onMouseUp(event) {
 		redoBuffer = [];
 	}
 	else if(mode == 'move'){ 	// selection mode
-		
+		console.log(hitPath)
 
 		if(hitPath && hitPath.name == 'path')
 		{
+						console.log('activated')
+
 			deselectAllItems();
 			hitPath.selected = true;
 			activateStyleButtons();
