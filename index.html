@@ -19,6 +19,9 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
     <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"  rel="stylesheet">
+
+	<link href="/css/file-input.min.css"  rel="stylesheet">
+
  
 <!--	My custom CSS	-->
 	<link href="css/shapes.css" rel="stylesheet">
@@ -27,6 +30,8 @@
 <!--	Javascript	-->
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+
+	<script src="js/buttons.js"></script>
 
 	<script type="text/javascript" src="js/paper.js"></script>
 <!--	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>-->
@@ -40,8 +45,9 @@
    if(!fileName) {
 		   fileName = "note_taking.svg"
 	   }
-
-	   var url = "data:image/svg+xml;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
+	// "data:image/svg+xml;utf8,"
+	   var url = "data:image/svg;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
+	//	var url = "data:text/plain;utf8," + encodeURIComponent(paper.project.exportJSON({asString:true}));
 
 	   var link = document.createElement("a");
 	   link.download = fileName;
@@ -203,7 +209,8 @@
 	  </h5>
 	</div>
 
-	  <div class="btn-group" role="group"  style="float:right; margin-right:10px;">
+<!--
+<div class="btn-group" role="group"  style="float:right; margin-right:10px;">
 	<div class="btn-group" role="group">
 	<button type="button" class="btn btn-primary" data-toggle="dropdown"><span class="glyphicon glyphicon-floppy-disk"></span> Export</button>
 		<ul class="dropdown-menu" style="top: 40px; left: auto; width:100px" role="menu">
@@ -213,7 +220,9 @@
 		</ul>
 	</div>
 <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-cloud-upload"></span>  Import</button>
+
 </div>
+-->
 
 
 <button type="button" style="margin-right:20px;  float:right;" class = "btn btn-danger" onclick="restart()" class="btn"><span class="glyphicon glyphicon-trash"></span> Clean</button>
@@ -450,6 +459,38 @@
 		
 <br><br>
 		
+<!--https://www.html5rocks.com/en/tutorials/file/dndfiles/		-->
+<style>
+  .thumb {
+    height: 140px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
+
+
+<div class="btn-group" role="group"  style="float:right; margin-right:10px;">
+	<div class="btn-group" role="group">
+	<button type="button" class="btn btn-primary" data-toggle="dropdown"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
+		<ul class="dropdown-menu" style="top: 40px; left: auto; width:100px" role="menu">
+			<li style="float: left;" onclick="downloadAsPNG()"><a href="#">PNG</a></li>
+			<hr>
+			<li style="float: left;" onclick="downloadAsSVG()"><a href="#">SVG</a></li>
+		</ul>
+	</div>
+<!--<button type="button" id="importSVG" class="btn btn-primary"><span class="glyphicon glyphicon-cloud-upload"></span>  Import</button>-->
+
+	<label class="btn btn-primary" style="margin-top:3px">  <span class="glyphicon glyphicon-cloud-upload"></span> Import<input type="file" id="importSVG" style="display: none;">     </label>
+
+</div>
+
+<!--<div class="col-xs-12" style="height:100px; "></div>		-->
+<output id="list"></output>
+
+
+<!--http://plugins.krajee.com/file-input#installation-->  <!--bu eklenebilir daha sonra		-->
+<!--file:///Users/mehmetakifakkus/Downloads/kartik-v-bootstrap-fileinput-a34efc2/examples/index.html		-->
+
 <!--
 <div class="btn-group" role="group">
 
@@ -469,9 +510,6 @@
 	<canvas id="myCanvas0" class = "canvasPen" height="1200" width="1170"></canvas>
 </div>
 
-     
-
-    
     <!-- Define inlined PaperScript associate it with myCanvas -->
     </div>
 	</div>

@@ -1,4 +1,5 @@
-var myPath, paths = []
+var myPath;
+paths = []
 
 var penColor = 'black', penWidth = 3;
 
@@ -7,6 +8,77 @@ var redoBuffer = []
 var backgroundImage = null, mode = 'pen';
 
 var hitOptions = {segment: true, stroke: true,	fill: true,	tolerance: 6};
+
+
+
+function onMouseUp(event) {
+	if(mode == 'pen'){			// drawing mode
+
+		myPath.smooth({type:'catmull-rom'});
+		myPath.simplify(8);
+
+		if(myPath.segments.length < 2)
+		{
+			myPath.remove();
+			myPath = new Path.Circle({name: 'path',center: event.point, radius: 3, fillColor: penColor});
+		}
+
+		var last = paths.last();
+		//if(mergeIfIntersects(myPath) > 0)
+		//	paths.push(new Group([myPath, last]));
+		//else
+			paths.push(myPath);
+
+		redoBuffer = [];
+	}
+	else if(mode == 'move'){ 	// selection mode
+
+		console.log(dashedPath)
+
+		if(hitPath && hitPath.name == 'path')
+		{
+						console.log('activated')
+
+			//deselectAllItems();
+			hitPath.selected = true;
+			activateStyleButtons();
+			document.getElementById('myCanvas0').className = "canvasMove";
+			return;
+		}
+		else if(event.delta.length < 10)
+		{
+			//deselectAllItems();
+			paper.project.selectedItems.forEach(function(el){el.selected = false;});
+			document.getElementById('myCanvas0').className = "canvasDefault"
+
+			return;
+		}
+
+
+//		else if(dashedPath.segments.length > 0 && dashedPath.length <= 10)
+//		{
+//			deselectAllItems();
+//
+//			console.log('hoppaa')
+//			console.log(dashedPath)
+//			document.getElementById('myCanvas0').className = "canvasDefault"
+//			return;
+//		}
+		else if(dashedPath.segments.length > 0 && dashedPath.length > 10)
+		{
+			for(var i=0; i < paths.length ;i++)			// find seleted items
+			{
+				dashedPath.closed = true;
+				var intersections = dashedPath.getIntersections(paths[i]);
+
+				if(isContains(paths[i], dashedPath) || intersections.length > 0)
+					paths[i].selected = true;
+			}
+		}
+
+		console.log(paper.project.selectedItems.length+' items are selected.')
+	}
+}
 
 function onMouseDown(event) {
 	if(mode == 'pen')	
@@ -19,22 +91,28 @@ function onMouseDown(event) {
 	else if(mode == 'move')	
 	{
 		dashedPath = new Path({name: 'dashedPath', strokeColor: 'black', strokeWidth: 3, dashArray: [6, 4]});
-	
-		// Remove the path, when the mouse is released:
-	 	dashedPath.removeOnUp();
+	 	dashedPath.removeOnUp(); // Remove the path, when the mouse is released:
 	 
-	 	if((event.modifiers.control || event.modifiers.command) && selectedItems.length > 0) // clone while dragging
-			for(var i=0; i<selectedItems.length; i++)  
+		var newSelected = [];
+	 	if((event.modifiers.control || event.modifiers.command) && paper.project.selectedItems.length > 0) // clone while dragging
+		{
+			for(var i=0; i < paper.project.selectedItems.length; i++)
 			{
-				selectedItems[i].selected = false;
-				var newItem = selectedItems[i].clone();
+				var newItem = paper.project.selectedItems[i].clone();
+				newItem.selected = false;
 				newItem.name = 'path';
+
+				newSelected.push(newItem);
 				paths.push(newItem);
+
 			}
+
+			paper.project.selectedItems.forEach(function(el){el.selected = false;});
+			newSelected.forEach(function(el){el.selected = true;});
+		}
 	}	
 	
 	hitPath = project.hitTest(event.point, hitOptions).item;
-	console.log(hitPath)
 	if(hitPath && hitPath.name == 'path')
 	{
 		deselectAllItems();
@@ -45,14 +123,15 @@ function onMouseDown(event) {
 }
 
 function onMouseDrag(event) {
+
 	if(mode == 'pen')
 		myPath.add(event.point);
 	else if(mode == 'move')
 	{
-		if(selectedItems.length > 0)      // selected items are moved
+		if(paper.project.selectedItems.length > 0)      // selected items are moved
 		{
-			for(var i=0; i<selectedItems.length; i++)  
-				selectedItems[i].position += event.delta;
+			for(var i=0; i < paper.project.selectedItems.length; i++)
+				paper.project.selectedItems[i].position += event.delta;
 		}
 		else if (hitPath && hitPath.name == 'path')  //only clicked item is moved
 			hitPath.position += event.delta;
@@ -67,6 +146,47 @@ function onMouseDrag(event) {
 			hitResult.item.remove();
 	}
 }
+
+function onKeyDown(evt) {
+	//console.log(evt.key.charCodeAt(0))
+
+	if(evt.key.charCodeAt(0) == 49 || evt.key.charCodeAt(0) == 112) // pen is captured
+		window.selectPen();
+	else if(evt.key.charCodeAt(0) == 50 || evt.key.charCodeAt(0) == 101) // eraser is captured
+		window.selectEraser();
+	else if(evt.key.charCodeAt(0) == 51 || evt.key.charCodeAt(0) == 109) // move is captured
+		window.selectMove();
+	else if(evt.key.charCodeAt(0) == 26 || evt.key.charCodeAt(0) == 122 || evt.key.charCodeAt(0) == 108) // left key or ctrl+z or command+z
+		window.backward();
+	else if(evt.key.charCodeAt(0) == 114 || evt.key.charCodeAt(0) == 121) // right key or ctrl+y
+		window.forward();
+	else if(evt.key.charCodeAt(0) == 98 || evt.key.charCodeAt(0) == 100) // back space or delete
+	{
+		//selected items will be deleted
+		var len = paper.project.selectedItems.length;
+
+		for(var i=0; i<len; i++)
+			paper.project.selectedItems[0].remove();
+	}
+	else if(evt.key.charCodeAt(0) == 118) // paste selected items
+	{
+		var newSelected = [];
+		for(var i=0; i < paper.project.selectedItems.length; i++)
+		{
+			var newItem = paper.project.selectedItems[i].clone();
+			newItem.selected = false;
+			newItem.name = 'path';
+			newItem.position += [150, 80];
+
+			newSelected.push(newItem);
+			paths.push(newItem);
+		}
+		paper.project.selectedItems.forEach(function(el){el.selected = false;})
+		newSelected.forEach(function(el){el.selected = true;})
+	}
+	view.update();
+};
+
 
 function differentSimplicity(pathp){
 	
@@ -123,109 +243,9 @@ function disableStyleButtons(){
 function deselectAllItems(){
 	for(var i=0; i < paths.length ;i++)
 		paths[i].selected = false;
+
+	disableStyleButtons();
 }
-
-selectedItems = []
-function onMouseUp(event) {
-	if(mode == 'pen'){			// drawing mode
-		
-		//differentSimplicity(myPath);
-
-		myPath.smooth({type:'catmull-rom'});
-		myPath.simplify(8);
-
-		if(myPath.segments.length < 2)
-		{	
-			myPath.remove();
-			myPath = new Path.Circle({name: 'path',center: event.point, radius: 3, fillColor: penColor});
-		}
-
-		var last = paths.last();
-		//if(mergeIfIntersects(myPath) > 0)
-		//	paths.push(new Group([myPath, last]));
-		//else
-			paths.push(myPath);
-
-		redoBuffer = [];
-	}
-	else if(mode == 'move'){ 	// selection mode
-		console.log(hitPath)
-
-		if(hitPath && hitPath.name == 'path')
-		{
-						console.log('activated')
-
-			deselectAllItems();
-			hitPath.selected = true;
-			activateStyleButtons();
-			document.getElementById('myCanvas0').className = "canvasMove";
-		}
-		else if(dashedPath.length <= 3)
-		{
-			deselectAllItems();
-			disableStyleButtons();
-
-			document.getElementById('myCanvas0').className = "canvasDefault" 
-			
-			selectedItems = [];
-			return;
-		}
-			
-		for(var i=0; i < paths.length ;i++)			// find seleted items
-		{
-			dashedPath.closed = true;
-			var intersections = dashedPath.getIntersections(paths[i]);
-			
-			if(isContains(paths[i], dashedPath) || intersections.length > 0)
-			{
-				paths[i].selected = true;
-				selectedItems.push(paths[i]);
-				console.log(paths[i])
-			}
-		}
-
-		console.log(selectedItems.length+' items are selected.')
-	}
-}
-
-function onKeyDown(evt) {
-	console.log(evt.key.charCodeAt(0))
-		
-	if(evt.key.charCodeAt(0) == 49 || evt.key.charCodeAt(0) == 112) // pen is captured
-		window.selectPen();
-	else if(evt.key.charCodeAt(0) == 50 || evt.key.charCodeAt(0) == 101) // eraser is captured
-		window.selectEraser();
-	else if(evt.key.charCodeAt(0) == 51 || evt.key.charCodeAt(0) == 109) // move is captured
-		window.selectMove();		
-	else if(evt.key.charCodeAt(0) == 26 || evt.key.charCodeAt(0) == 122 || evt.key.charCodeAt(0) == 108) // left key or ctrl+z or command+z
-		window.backward();
-	else if(evt.key.charCodeAt(0) == 114 || evt.key.charCodeAt(0) == 121) // right key or ctrl+y
-		window.forward();
-	else if(evt.key.charCodeAt(0) == 98 || evt.key.charCodeAt(0) == 100) // back space or delete
-	{
-		//selected items will be deleted
-		for(var i=0; i<selectedItems.length; i++)
-			selectedItems[i].remove();
-	}
-	else if(evt.key.charCodeAt(0) == 118) // paste selected items
-	{
-		var newSelectedItems = [];
-		for(var i=0; i<selectedItems.length; i++)  
-		{
-			selectedItems[i].selected = false;
-			var newItem = selectedItems[i].clone();
-			newItem.selected = true;
-			newItem.name = 'path';
-			newItem.position += [150, 80];
-
-			paths.push(newItem);
-			newSelectedItems.push(newItem);
-		}
-		selectedItems = newSelectedItems;
-	}
-	view.update();
-};
-
 
 //////////////////////////////  Select Background Part  //////////////////////////////
 
@@ -348,19 +368,18 @@ window.forward = function(){
 
 window.changePenColor = function(color){
 	penColor = color;
-//	$("#penColor").css('background-color', color);
 	$("#penColor").css('color', color);
 
-	for(var i=0; i<selectedItems.length; i++)  
-		selectedItems[i].strokeColor = penColor;
+	for(var i=0; i<paper.project.selectedItems.length; i++)
+		paper.project.selectedItems[i].strokeColor = penColor;
 
 	hitPath.strokeColor = penColor;
 	view.update();
 }
 
 window.setWidth = function(width){
-	for(var i=0; i<selectedItems.length; i++)  
-		selectedItems[i].strokeWidth = width;
+	for(var i=0; i < paper.project.selectedItems.length; i++)
+		paper.project.selectedItems[i].strokeWidth = width;
 
 	$("#penWidth").css('opacity', 1);
 
@@ -371,8 +390,8 @@ window.setWidth = function(width){
 window.decreaseWidth = function(){
 	var group = new Group();
 	
-	for(var i=0; i<selectedItems.length; i++)  
-		group.addChild(selectedItems[i]);
+	for(var i=0; i < paper.project.selectedItems.length; i++)
+		group.addChild(paper.project.selectedItems[i]);
 	
 	console.log(group.bounds)
 	group.scale(0.9, group.bounds.center);
@@ -384,8 +403,8 @@ window.decreaseWidth = function(){
 window.increaseWidth = function(){
 	var group = new Group();
 	
-	for(var i=0; i<selectedItems.length; i++)  
-		group.addChild(selectedItems[i]);
+	for(var i=0; i<paper.project.selectedItems.length; i++)
+		group.addChild(paper.project.selectedItems[i]);
 	
 	group.scale(1.1, group.bounds.center);
 	hitPath.scale(1.1, hitPath.bounds.center);
@@ -398,3 +417,51 @@ window.increaseWidth = function(){
 Array.prototype.last = function() {
     return this[this.length-1];
 }
+
+
+
+function handleFileSelect(evt) {
+    var files = evt.target.files; // FileList object
+
+    // Loop through the FileList and render image files as thumbnails.
+    for (var i = 0, f; f = files[i]; i++) {
+
+      // Only process image files.
+      if (!f.type.match('image.*')) {
+        continue;
+      }
+
+      var reader = new FileReader();
+      var output = [];
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var span = document.createElement('span');
+          span.innerHTML = ['<img class="thumb" src="', e.target.result,
+                            '" title="', escape(theFile.name), '"/>', '<strong>', escape(theFile.name), '</strong> <br> ', theFile.size, ' bytes <br>last modified: ', theFile.lastModifiedDate ? theFile.lastModifiedDate.toLocaleDateString() : 'n/a'].join('');
+
+          document.getElementById('list').insertBefore(span, null);
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+
+
+      reader = new FileReader();
+
+      reader.onload = (function(theFile) {
+        return function(e) {
+		  paper.project.importSVG(e.target.result)
+		  paths = paper.project.getItems({name:'path'})
+        };
+      })(f);
+
+      reader.readAsText(f);
+    }
+  }
+
+document.getElementById('importSVG').addEventListener('change', handleFileSelect, false);
+
