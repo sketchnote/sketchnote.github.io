@@ -1,199 +1,212 @@
 <!DOCTYPE html>
 <html>
-<head>
-	   
+  <head>
+    <!--	Bootstrap	-->
+    <!--	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" >-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link
+      href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
 
-<!--	Bootstrap	-->	
-<!--	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" >-->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">    	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	
-<!--http://mdbootstrap.com/css/colors/-->
-    
-<!--	Font Awesome	-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/colorpalette.css">
-	
-<!--	Fonts    -->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
-    <link href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"  rel="stylesheet">
+    <!--http://mdbootstrap.com/css/colors/-->
 
-	<link href="/css/file-input.min.css"  rel="stylesheet">
+    <!--	Font Awesome	-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="stylesheet" href="css/colorpalette.css" />
 
- 
-<!--	My custom CSS	-->
-	<link href="css/shapes.css" rel="stylesheet">
-<!--    <link  rel="stylesheet/less" type="text/css"  href="css/mydropdown.less"/>-->
-	
-<!--	Javascript	-->
+    <!--	Fonts    -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato|Open+Sans|Roboto"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <link href="/css/file-input.min.css" rel="stylesheet" />
+
+    <!--	My custom CSS	-->
+    <link href="css/shapes.css" rel="stylesheet" />
+    <!--    <link  rel="stylesheet/less" type="text/css"  href="css/mydropdown.less"/>-->
+
+    <!--	Javascript	-->
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
 
-	<script src="js/buttons.js"></script>
+    <script src="js/buttons.js"></script>
 
-	<script type="text/javascript" src="js/paper.js"></script>
-<!--	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>-->
-	
-    <title> Note taking / Drawing App </title>
-</head>
-   
-<script>
-	window.downloadAsSVG = function (fileName) {
+    <script type="text/javascript" src="js/paper.js"></script>
+    <!--	<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>-->
 
-   if(!fileName) {
-		   fileName = "note_taking.svg"
-	   }
-	// "data:image/svg+xml;utf8,"
-	   var url = "data:image/svg;utf8," + encodeURIComponent(paper.project.exportSVG({asString:true}));
-	//	var url = "data:text/plain;utf8," + encodeURIComponent(paper.project.exportJSON({asString:true}));
+    <title>Note taking / Drawing App</title>
+  </head>
 
-	   var link = document.createElement("a");
-	   link.download = fileName;
-	   link.href = url;
-	   link.click();
-	}
-	
-	window.downloadAsPNG = function (fileName) {
+  <script>
+    window.downloadAsSVG = function (fileName) {
+      if (!fileName) {
+        fileName = "note_taking.svg";
+      }
+      // "data:image/svg+xml;utf8,"
+      var url =
+        "data:image/svg;utf8," +
+        encodeURIComponent(paper.project.exportSVG({ asString: true }));
+      //	var url = "data:text/plain;utf8," + encodeURIComponent(paper.project.exportJSON({asString:true}));
 
-   if(!fileName) {
-		   fileName = "note_taking.png"
-	   }
-		
-		var canvas = document.getElementById("myCanvas0"), ctx = canvas.getContext("2d");
-		// draw to canvas...
-		canvas.toBlob(function(blob) {
-			saveAs(blob, "note_taking.png");
-		});
-	}
+      var link = document.createElement("a");
+      link.download = fileName;
+      link.href = url;
+      link.click();
+    };
 
-</script> 	
-	
-	
-	
-<style>    
-	
-/*	@media (min-width: 992px)*/
-	.col-md-1 {
-		width: 13%;
-		position: relative;
-		min-height: 1px;
-		padding-right: 15px;
-		padding-left: 15px
-	}
-	
-	.col-md-10 {
-		width: 86%;
-/*		position: relative;*/
-		min-height: 100px;
-		padding-right: 10px;
-		margin-right: 0px;
+    window.downloadAsPNG = function (fileName) {
+      if (!fileName) {
+        fileName = "note_taking.png";
+      }
 
-	}
-	
+      var canvas = document.getElementById("myCanvas0"),
+        ctx = canvas.getContext("2d");
+      // draw to canvas...
+      canvas.toBlob(function (blob) {
+        saveAs(blob, "note_taking.png");
+      });
+    };
+  </script>
+
+  <style>
+    /*	@media (min-width: 992px)*/
+    .col-md-1 {
+      width: 13%;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+
+    .col-md-10 {
+      width: 86%;
+      /*		position: relative;*/
+      min-height: 100px;
+      padding-right: 10px;
+      margin-right: 0px;
+    }
+
     button {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    outline: none;
-    border: 0px solid;
-    background: transparent;
-	margin: 3px;
-}
-	
-	button{
-		background: #acabab;
-		color: white; 
-	}
-       
-	.canvasDefault{
-/*		cursor:url(https://cdn4.iconfinder.com/data/icons/design-tools-outline-icons-set/144/Selection_Tool_Add-48.png) 18 20, auto;	*/
-		cursor:url(/images/addSelection.ico) 18 20, auto;	
-	}
-	
-	.canvasPen{
-		cursor:url(http://icons.iconarchive.com/icons/brainleaf/free-pencil/48/pencil-grey-icon.png) 13 43, auto;	
-	}
-	
-	.canvasDelete{
-		cursor:url(http://individual.icons-land.com/IconsPreview/Multimedia/PNG/32x32/Eraser.png) 5 28, auto;	
-	}
-	
-	.canvasMove{
-		cursor:move;
-	}
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      outline: none;
+      border: 0px solid;
+      background: transparent;
+      margin: 3px;
+    }
 
-    </style>    
+    button {
+      background: #acabab;
+      color: white;
+    }
 
-	<style>
-			
-	[class^="my-custom-icon-"],
-	[class*="my-custom-icon-"] {
-/*		background-image: url("https://app.10000ft.com/images/compSpritesButtonsIcons.png");*/
-		background-repeat: no-repeat;
-		display: inline-block;
-/*		background-position: center center;*/
-	}	
-		
-	
-	.my-custom-icon-add-tool {
-/*		background-image: url("https://cdn4.iconfinder.com/data/icons/design-tools-outline-icons-set/144/Selection_Tool_Add-32.png");*/
-		background-image: url("/images/imageedit_3_4750965330.png");
-		
-		background-position : -6px -6px; width : 48px; height : 48px;
-		color:aliceblue;
-	}
-		
-	.dropright:hover .dropdown-menu {
-		display: block;
-		margin-top: 0;
-	 }	
-		
-	.dropright:hover .mydropdown-menu {
-		display: block;
-		margin-top: 0;
-	 }	
-			
-	.dropdown-menu>li>img {	
-		display: block;
-		top: 2px; bottom:15px; left: 0; right:0;
-		margin: auto;
-	}	
-		
-	.dropdown-menu>li>a {
-		display: block;
-		margin: 10px 10px 0px 10px;
-		clear: both;
-		font-weight: 400;
-		line-height: 1.42857143;
-		color: #333;
-		white-space: nowrap;
-		text-align: center;
-	}	
-		
-	.verticalLine {
-	  border-left: 1px solid #ccc;
-	}	
-		
-		.show{
-			display: block;
-		}
+    .canvasDefault {
+      /*		cursor:url(https://cdn4.iconfinder.com/data/icons/design-tools-outline-icons-set/144/Selection_Tool_Add-48.png) 18 20, auto;	*/
+      cursor: url(/images/addSelection.ico) 18 20, auto;
+    }
 
+    .canvasPen {
+      cursor: url(http://icons.iconarchive.com/icons/brainleaf/free-pencil/48/pencil-grey-icon.png)
+          13 43,
+        auto;
+    }
 
-		.hide{
-			display: none;
-		}
+    .canvasDelete {
+      cursor: url(http://individual.icons-land.com/IconsPreview/Multimedia/PNG/32x32/Eraser.png)
+          5 28,
+        auto;
+    }
 
-	</style>
-	
-	
-<!--<body onmousedown="rightclick();">	-->
-<body>	
- <div class="container" style="width:98%;">
-  <div class="row-fluid">
+    .canvasMove {
+      cursor: move;
+    }
+  </style>
 
-<!--
+  <style>
+    [class^="my-custom-icon-"],
+    [class*="my-custom-icon-"] {
+      /*		background-image: url("https://app.10000ft.com/images/compSpritesButtonsIcons.png");*/
+      background-repeat: no-repeat;
+      display: inline-block;
+      /*		background-position: center center;*/
+    }
+
+    .my-custom-icon-add-tool {
+      /*		background-image: url("https://cdn4.iconfinder.com/data/icons/design-tools-outline-icons-set/144/Selection_Tool_Add-32.png");*/
+      background-image: url("/images/imageedit_3_4750965330.png");
+
+      background-position: -6px -6px;
+      width: 48px;
+      height: 48px;
+      color: aliceblue;
+    }
+
+    .dropright:hover .dropdown-menu {
+      display: block;
+      margin-top: 0;
+    }
+
+    .dropright:hover .mydropdown-menu {
+      display: block;
+      margin-top: 0;
+    }
+
+    .dropdown-menu > li > img {
+      display: block;
+      top: 2px;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+
+    .dropdown-menu > li > a {
+      display: block;
+      margin: 10px 10px 0px 10px;
+      clear: both;
+      font-weight: 400;
+      line-height: 1.42857143;
+      color: #333;
+      white-space: nowrap;
+      text-align: center;
+    }
+
+    .verticalLine {
+      border-left: 1px solid #ccc;
+    }
+
+    .show {
+      display: block;
+    }
+
+    .hide {
+      display: none;
+    }
+  </style>
+
+  <!--<body onmousedown="rightclick();">	-->
+  <body>
+    <div class="container" style="width: 98%">
+      <div class="row-fluid">
+        <!--
 	 <div id="intro" style="display:block; float:left">
 	  <h2 style="text-align: center">Note Taking / Drawing App</h2> 
 	  <h4 style="text-align: center">
@@ -202,14 +215,17 @@
 	</div>
 -->
 
-	<div id="intro" style="display:relative; float:left">
-	  <h3 style="text-align: left; margin-top:0px;">Note Taking / Drawing App</h3>
-	  <h5 style="text-align: left">
-		  Note taking app appropriate for graphic tablets. You can draw, edit and download as image.
-	  </h5>
-	</div>
+        <div id="intro" style="display: relative; float: left">
+          <h3 style="text-align: left; margin-top: 0px">
+            Note Taking / Drawing App
+          </h3>
+          <h5 style="text-align: left">
+            Note taking app appropriate for graphic tablets. You can draw, edit
+            and download as image.
+          </h5>
+        </div>
 
-<!--
+        <!--
 <div class="btn-group" role="group"  style="float:right; margin-right:10px;">
 	<div class="btn-group" role="group">
 	<button type="button" class="btn btn-primary" data-toggle="dropdown"><span class="glyphicon glyphicon-floppy-disk"></span> Export</button>
@@ -224,347 +240,616 @@
 </div>
 -->
 
+        <button
+          type="button"
+          style="margin-right: 20px; float: right"
+          class="btn btn-danger"
+          onclick="restart()"
+          class="btn"
+        >
+          <span class="glyphicon glyphicon-trash"></span> Clean
+        </button>
 
-<button type="button" style="margin-right:20px;  float:right;" class = "btn btn-danger" onclick="restart()" class="btn"><span class="glyphicon glyphicon-trash"></span> Clean</button>
+        <div style="float: left; margin-left: 120px">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="dropdown"
+            onclick=""
+          >
+            <i
+              class="fa fa-photo"
+              style="font-size: 20px; margin-right: 10px"
+            ></i
+            >Page style
+          </button>
 
+          <ul class="dropdown-menu" style="top: auto; left: auto" role="menu">
+            <li onclick="drawBackground(0)">
+              <a href="#">Empty</a><img width="125" height="90" />
+              <hr />
+            </li>
+            <li onclick="drawBackground(1)">
+              <a href="#">Basic notepad</a
+              ><img src="images/noteBackground1.jpeg" width="125" height="90" />
+              <hr />
+            </li>
+            <li onclick="drawBackground(5)">
+              <a href="#">Image Coordinate</a
+              ><img src="images/noteBackground5.png" width="125" height="90" />
+            </li>
+            <li onclick="drawBackground(2)">
+              <a href="#">Linear notepad</a
+              ><img src="images/noteBackground2.jpeg" width="125" height="90" />
+              <hr />
+            </li>
+            <li onclick="drawBackground(3)">
+              <a href="#">Squared notepad</a
+              ><img src="images/noteBackground3.jpeg" width="125" height="90" />
+              <hr />
+            </li>
+            <li onclick="drawBackground(4)">
+              <a href="#">Stylish notepad</a
+              ><img src="images/noteBackground4.jpeg" width="125" height="90" />
+            </li>
+          </ul>
+        </div>
 
-<div style="float:left; margin-left:120px;">
-	<button type="button" class="btn btn-primary" data-toggle="dropdown" onclick=""><i class="fa fa-photo" style="font-size:20px; margin-right:10px"></i>Page style</button>
+        <div
+          class="btn-group"
+          role="group"
+          style="float: left; margin-left: 10px"
+        >
+          <button onclick="backward()" class="btn btn-primary btn-round">
+            <i style="font-size: 16px" class="material-icons">undo</i>
+          </button>
+          <button onclick="forward()" class="btn btn-primary btn-round">
+            <i style="font-size: 16px" class="material-icons">redo</i>
+          </button>
+        </div>
 
-	<ul class="dropdown-menu" style="top: auto; left: auto;" role="menu">
-		<li onclick="drawBackground(0)"><a href="#">Empty</a><img width="125" height="90"><hr> </li>
-		<li onclick="drawBackground(1)"><a href="#">Basic notepad</a><img src="images/noteBackground1.jpeg" width="125" height="90"><hr> </li>
-		<li onclick="drawBackground(2)"><a href="#">Linear notepad</a><img src="images/noteBackground2.jpeg" width="125" height="90"><hr> </li>
-		<li onclick="drawBackground(3)"><a href="#">Squared notepad</a><img src="images/noteBackground3.jpeg" width="125" height="90"><hr> </li>
-		<li onclick="drawBackground(4)"><a href="#">Stylish notepad</a><img src="images/noteBackground4.jpeg" width="125" height="90">
-		</li>
-	</ul>
-</div>
+        <div class="col-xs-12" style="height: 0px"></div>
 
+        <div class="col-md-1">
+          <div class="col-xs-12" style="height: 10px"></div>
+          <div class="row">
+            <h3>Pen mode</h3>
+            <div class="btn-group" role="group">
+              <button
+                id="penButton"
+                onclick="selectPen()"
+                class="btn btn-lg btn-primary"
+              >
+                <span class="glyphicon glyphicon-pencil"></span>
+              </button>
+              <button
+                id="eraserButton"
+                onclick="selectEraser()"
+                class="btn btn-lg btn-secondary"
+              >
+                <span class="fa fa-eraser"></span>
+              </button>
+              <button
+                id="moveButton"
+                onclick="selectMove()"
+                class="btn btn-lg btn-secondary"
+                data-toggle="tooltip"
+                data-placement="left"
+                title="Tooltip on right"
+              >
+                <span class="glyphicon glyphicon-move"></span>
+              </button>
+            </div>
 
-<div class="btn-group" role="group"  style="float:left; margin-left:10px;  " >
-	<button onclick="backward()" class = "btn btn-primary btn-round" ><i style="font-size:16px" class="material-icons">undo</i></button>
-	<button onclick="forward()" class = "btn btn-primary btn-round" ><i style="font-size:16px" class="material-icons">redo</i></button>
-</div>
+            <br /><br />
+            <h3>Style</h3>
+            <div class="btn-group" role="group">
+              <div class="btn-group dropright">
+                <button id="penColor" class="btn btn-secondary btn-round">
+                  <i style="font-size: 20px" class="material-icons"
+                    >border_color</i
+                  >
+                </button>
+                <ul
+                  class="mydropdown-menu"
+                  style="top: 36px; left: -50px; width: 300px"
+                  role="menu"
+                >
+                  <!--		https://codepen.io/mehmetakifakkus/pen/vZPjWo-->
+                  <li>
+                    <div id="styleEditPen" class="color-palette">
+                      <div class="color-container width5 clearfix">
+                        <h3>Standart</h3>
 
-<div class="col-xs-12" style="height:0px; "></div>
+                        <span
+                          class="color c000000"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c444444"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c808080"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color ca5a3a3"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cd0d0d0"
+                          onclick="getColor(this)"
+                        ></span>
+                      </div>
+                      <!-- end color-container -->
 
+                      <myhr></myhr>
 
-<div class="col-md-1">
-	<div class="col-xs-12" style="height:10px; "></div>
-	<div class="row">
+                      <div class="color-container width5 clearfix">
+                        <h3>Reddish</h3>
 
-<h3>Pen mode</h3>	
-<div class="btn-group" role="group">
+                        <span
+                          class="color cD12013"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cE53427"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cF44336"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cFF5C4F"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cFF6659"
+                          onclick="getColor(this)"
+                        ></span>
+                      </div>
+                      <!-- end color-container -->
 
+                      <myhr></myhr>
 
-<button id="penButton" onclick="selectPen()" class="btn btn-lg btn-primary"><span class="glyphicon glyphicon-pencil"></span></button>
-<button id="eraserButton" onclick="selectEraser()" class="btn btn-lg btn-secondary"><span class="fa fa-eraser"></span></button>
-<button id="moveButton" onclick="selectMove()" class="btn btn-lg btn-secondary" data-toggle="tooltip" data-placement="left" title="Tooltip on right"><span class="glyphicon glyphicon-move"></span></button>
+                      <div class="color-container width5 clearfix">
+                        <h3>Pinkish</h3>
 
-</div>
-							
-<br><br>	
-<h3>Style</h3>	
-<div class="btn-group" role="group">
+                        <span
+                          class="color cC60040"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cDA0F54"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cE91E63"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cF3286D"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cFF4186"
+                          onclick="getColor(this)"
+                        ></span>
+                      </div>
+                      <!-- end color-container -->
 
-<div class="btn-group dropright">
-	<button id="penColor" class="btn btn-secondary btn-round"><i style="font-size:20px" class="material-icons">border_color</i></button>
-	<ul class="mydropdown-menu" style="top: 36px; left: -50px; width: 300px;" role="menu">
-		<!--		https://codepen.io/mehmetakifakkus/pen/vZPjWo-->
-		<li>
-			<div id = "styleEditPen" class="color-palette">
+                      <myhr></myhr>
 
-				<div class="color-container width5 clearfix">
+                      <div class="color-container width5 clearfix">
+                        <h3>Purpleish</h3>
+                        <span
+                          class="color c830E97"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c441794"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c673AB7"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c8A5DDA"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cBF4AD3"
+                          onclick="getColor(this)"
+                        ></span>
+                      </div>
+                      <!-- end color-container -->
 
-					<h3>Standart</h3>
+                      <myhr></myhr>
 
-					<span class="color c000000" onclick="getColor(this)"></span>
-					<span class="color c444444" onclick="getColor(this)"></span>
-					<span class="color c808080" onclick="getColor(this)"></span>
-					<span class="color ca5a3a3" onclick="getColor(this)"></span>
-					<span class="color cd0d0d0" onclick="getColor(this)"></span>
+                      <div class="color-container width6 clearfix">
+                        <h3>Blueish</h3>
 
-				</div>
-				<!-- end color-container -->
+                        <span
+                          class="color c1C2E92"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c2B3DA1"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c4456BA"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c0073D0"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c2196F3"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c26CCFF"
+                          onclick="getColor(this)"
+                        ></span>
+                      </div>
+                      <!-- end color-container -->
 
-				<myhr></myhr>
+                      <myhr></myhr>
 
-				<div class="color-container width5 clearfix">
+                      <div class="color-container width6 clearfix">
+                        <h3>Greenish</h3>
 
-					<h3>Reddish</h3>
+                        <span
+                          class="color c007365"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c009688"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c4CAF50"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c298C2D"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c68A027"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c9AD259"
+                          onclick="getColor(this)"
+                        ></span>
+                      </div>
+                      <!-- end color-container -->
 
-					<span class="color cD12013" onclick="getColor(this)"></span>
-					<span class="color cE53427" onclick="getColor(this)"></span>
-					<span class="color cF44336" onclick="getColor(this)"></span>
-					<span class="color cFF5C4F" onclick="getColor(this)"></span>
-					<span class="color cFF6659" onclick="getColor(this)"></span>
+                      <myhr></myhr>
 
-				</div>
-				<!-- end color-container -->
+                      <div class="color-container width5 clearfix">
+                        <h3>Yellowish</h3>
+                        <span
+                          class="color cF5E131"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cFFF545"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cFFFF59"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cF0FF5C"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cCDDC39"
+                          onclick="getColor(this)"
+                        ></span>
+                      </div>
+                      <!-- end color-container -->
 
-				<myhr></myhr>
+                      <myhr></myhr>
 
-				
-				<div class="color-container width5 clearfix">
+                      <div class="color-container width4 clearfix">
+                        <h3>Orange</h3>
 
-					<h3>Pinkish</h3>
+                        <span
+                          class="color ce8b830"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color ce48831"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color cd84c35"
+                          onclick="getColor(this)"
+                        ></span>
+                        <span
+                          class="color c9e3c2f"
+                          onclick="getColor(this)"
+                        ></span>
+                      </div>
+                      <!-- end color-container -->
 
-					<span class="color cC60040" onclick="getColor(this)"></span>
-					<span class="color cDA0F54" onclick="getColor(this)"></span>
-					<span class="color cE91E63" onclick="getColor(this)"></span>
-					<span class="color cF3286D" onclick="getColor(this)"></span>
-					<span class="color cFF4186" onclick="getColor(this)"></span>
+                      <script>
+                        function getColor(element) {
+                          var color =
+                            $(element).context.className.split(" ")[1];
+                          console.log("#" + color.substring(1));
+                          changePenColor("#" + color.substring(1));
+                        }
+                      </script>
+                    </div>
+                    <!-- end color-palette -->
+                  </li>
+                </ul>
+              </div>
 
-				</div>
-				<!-- end color-container -->
+              <div class="btn-group dropright">
+                <button
+                  id="penWidth"
+                  class="btn btn-secondary btn-round disabled"
+                >
+                  <i style="font-size: 20px" class="material-icons"
+                    >line_weight</i
+                  >
+                </button>
+                <ul
+                  class="mydropdown-menu"
+                  style="top: 36px; left: -50px; width: 300px"
+                  role="menu"
+                >
+                  <li>
+                    <div
+                      id="styleEditWidth"
+                      class="color-palette"
+                      style="display: none"
+                    >
+                      <div class="color-container width1 clearfix">
+                        <a onclick="setWidth(3)" href="#">
+                          <img src="images/width3_.png" width="180" height="70"
+                        /></a>
+                      </div>
+                      <hr />
+                      <div class="color-container width1 clearfix">
+                        <a onclick="setWidth(5)" href="#">
+                          <img src="images/width5_.png" width="180" height="70"
+                        /></a>
+                      </div>
+                      <hr />
+                      <div class="color-container width1 clearfix">
+                        <a onclick="setWidth(8)" href="#"
+                          ><img
+                            src="images/width8_.png"
+                            width="180"
+                            height="70"
+                        /></a>
+                      </div>
+                      <hr />
+                      <div class="color-container width1 clearfix">
+                        <a onclick="setWidth(12)" href="#"
+                          ><img
+                            src="images/width12_.png"
+                            width="180"
+                            height="70"
+                        /></a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
 
-				<myhr></myhr>
-			
-				
-				<div class="color-container width5 clearfix">
+              <style>
+                .btn-group
+                  > .btn-group:last-child:not(:first-child)
+                  > .btn:first-child {
+                  border-top-right-radius: 4px;
+                  border-bottom-right-radius: 4px;
+                }
+              </style>
 
-					<h3>Purpleish</h3>
-					<span class="color c830E97" onclick="getColor(this)"></span>					
-					<span class="color c441794" onclick="getColor(this)"></span>
-					<span class="color c673AB7" onclick="getColor(this)"></span>
-					<span class="color c8A5DDA" onclick="getColor(this)"></span>
-					<span class="color cBF4AD3" onclick="getColor(this)"></span>
-				</div>
-				<!-- end color-container -->
+              <!--<button class="btn btn-secondary btn-round"><i style="font-size:27px" class="material-icons">line_weight</i></button>	-->
+              <div class="btn-group dropright">
+                <button id="objectSize" class="btn btn-secondary disabled">
+                  <span
+                    class="glyphicon glyphicon-text-size"
+                    style="
+                      font-size: 20px;
+                      border-top-right-radius: 5px;
+                      border-bottom-right-radius: 5px;
+                    "
+                  ></span>
+                </button>
+                <ul
+                  class="mydropdown-menu"
+                  style="top: 40px; left: -52px; width: 120px"
+                  role="menu"
+                >
+                  <li>
+                    <div
+                      id="styleEditSize"
+                      style="display: none"
+                      class="color-palette2"
+                    >
+                      <button onclick="decreaseWidth()" class="btn">
+                        <span class="glyphicon glyphicon-minus"></span>
+                      </button>
+                      <button onclick="increaseWidth()" class="btn">
+                        <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
 
-				<myhr></myhr>
-				
-				
-				<div class="color-container width6 clearfix">
+            <br /><br />
 
-					<h3>Blueish</h3>
+            <!--https://www.html5rocks.com/en/tutorials/file/dndfiles/		-->
+            <style>
+              .thumb {
+                height: 140px;
+                border: 1px solid #000;
+                margin: 10px 5px 0 0;
+              }
+            </style>
 
-					<span class="color c1C2E92" onclick="getColor(this)"></span>
-					<span class="color c2B3DA1" onclick="getColor(this)"></span>
-					<span class="color c4456BA" onclick="getColor(this)"></span>
-					<span class="color c0073D0" onclick="getColor(this)"></span>
-					<span class="color c2196F3" onclick="getColor(this)"></span>
-					<span class="color c26CCFF" onclick="getColor(this)"></span>
+            <div
+              class="btn-group"
+              role="group"
+              style="float: right; margin-right: 10px"
+            >
+              <div class="btn-group" role="group">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  data-toggle="dropdown"
+                >
+                  <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                </button>
+                <ul
+                  class="dropdown-menu"
+                  style="top: 40px; left: auto; width: 100px"
+                  role="menu"
+                >
+                  <li style="float: left" onclick="downloadAsPNG()">
+                    <a href="#">PNG</a>
+                  </li>
+                  <hr />
+                  <li style="float: left" onclick="downloadAsSVG()">
+                    <a href="#">SVG</a>
+                  </li>
+                </ul>
+              </div>
+              <!--<button type="button" id="importSVG" class="btn btn-primary"><span class="glyphicon glyphicon-cloud-upload"></span>  Import</button>-->
 
-				</div>
-				<!-- end color-container -->
+              <label class="btn btn-primary" style="margin-top: 3px">
+                <span class="glyphicon glyphicon-cloud-upload"></span>
+                Import<input type="file" id="importSVG" style="display: none" />
+              </label>
+            </div>
 
-				<myhr></myhr>
-				
-				
-				<div class="color-container width6 clearfix">
+            <!--<div class="col-xs-12" style="height:100px; "></div>		-->
+            <output id="list"></output>
 
-					<h3>Greenish</h3>
+            <!--http://plugins.krajee.com/file-input#installation-->
+            <!--bu eklenebilir daha sonra		-->
+            <!--file:///Users/mehmetakifakkus/Downloads/kartik-v-bootstrap-fileinput-a34efc2/examples/index.html		-->
 
-					<span class="color c007365" onclick="getColor(this)"></span>
-					<span class="color c009688" onclick="getColor(this)"></span>
-					<span class="color c4CAF50" onclick="getColor(this)"></span>
-					<span class="color c298C2D" onclick="getColor(this)"></span>
-					<span class="color c68A027" onclick="getColor(this)"></span>
-					<span class="color c9AD259" onclick="getColor(this)"></span>
-
-				</div>
-				<!-- end color-container -->
-
-				<myhr></myhr>
-
-				<div class="color-container width5 clearfix">
-
-					<h3>Yellowish</h3>
-					<span class="color cF5E131" onclick="getColor(this)"></span>					
-					<span class="color cFFF545" onclick="getColor(this)"></span>
-					<span class="color cFFFF59" onclick="getColor(this)"></span>
-					<span class="color cF0FF5C" onclick="getColor(this)"></span>
-					<span class="color cCDDC39" onclick="getColor(this)"></span>
-				</div>
-				<!-- end color-container -->
-
-				<myhr></myhr>
-				
-				
-				<div class="color-container width4 clearfix">
-
-					<h3>Orange</h3>
-
-					<span class="color ce8b830" onclick="getColor(this)"></span>
-					<span class="color ce48831" onclick="getColor(this)"></span>
-					<span class="color cd84c35" onclick="getColor(this)"></span>
-					<span class="color c9e3c2f" onclick="getColor(this)"></span>
-
-				</div>
-				<!-- end color-container -->
-
-				<script>
-					function getColor(element) {
-						var color = $(element).context.className.split(' ')[1]
-						console.log('#' + color.substring(1));
-						changePenColor('#' + color.substring(1));
-					}
-				</script>
-
-			</div>
-			<!-- end color-palette -->
-		</li>
-	</ul>
-</div>
-
-<div class="btn-group dropright">
-	<button id="penWidth" class="btn btn-secondary btn-round disabled"><i style="font-size:20px" class="material-icons">line_weight</i></button>
-	<ul class="mydropdown-menu" style="top: 36px; left: -50px; width: 300px;" role="menu">
-		<li>
-			<div id = "styleEditWidth" class="color-palette" style="display:none" >
-				<div class="color-container width1 clearfix">
-					<a onclick="setWidth(3)" href="#"> <img src="images/width3_.png" width="180" height="70"></a>
-				</div>
-				<hr>
-				<div class="color-container width1 clearfix">
-					<a onclick="setWidth(5)" href="#"> <img src="images/width5_.png" width="180" height="70"></a>
-				</div>
-				<hr>
-				<div class="color-container width1 clearfix">
-					<a onclick="setWidth(8)" href="#"><img src="images/width8_.png" width="180" height="70"></a>
-				</div>
-				<hr>
-				<div class="color-container width1 clearfix">
-					<a onclick="setWidth(12)" href="#"><img src="images/width12_.png" width="180" height="70"></a>
-				</div>
-			</div>
-		</li>
-	</ul>
-</div>
-
-	<style>
-		.btn-group>.btn-group:last-child:not(:first-child)>.btn:first-child {
-			border-top-right-radius: 4px;
-			border-bottom-right-radius: 4px;
-		}
-	</style>
-		
-<!--<button class="btn btn-secondary btn-round"><i style="font-size:27px" class="material-icons">line_weight</i></button>	-->
-<div class="btn-group dropright">
-	<button id="objectSize" class="btn btn-secondary disabled"><span class="glyphicon glyphicon-text-size" style="font-size:20px; border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;" ></span></button>
-	<ul class="mydropdown-menu" style="top: 40px; left: -52px; width: 120px;" role="menu">
-		<li>
-			<div id = "styleEditSize" style="display:none" class="color-palette2" >
-				<button onclick="decreaseWidth()" class="btn"><span class="glyphicon glyphicon-minus"></span></button>
-				<button onclick="increaseWidth()" class="btn"><span class="glyphicon glyphicon-plus"></span></button>
-			</div>
-		</li>
-	</ul>
-	</div>
-
-</div>
-		
-<br><br>
-		
-<!--https://www.html5rocks.com/en/tutorials/file/dndfiles/		-->
-<style>
-  .thumb {
-    height: 140px;
-    border: 1px solid #000;
-    margin: 10px 5px 0 0;
-  }
-</style>
-
-
-<div class="btn-group" role="group"  style="float:right; margin-right:10px;">
-	<div class="btn-group" role="group">
-	<button type="button" class="btn btn-primary" data-toggle="dropdown"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
-		<ul class="dropdown-menu" style="top: 40px; left: auto; width:100px" role="menu">
-			<li style="float: left;" onclick="downloadAsPNG()"><a href="#">PNG</a></li>
-			<hr>
-			<li style="float: left;" onclick="downloadAsSVG()"><a href="#">SVG</a></li>
-		</ul>
-	</div>
-<!--<button type="button" id="importSVG" class="btn btn-primary"><span class="glyphicon glyphicon-cloud-upload"></span>  Import</button>-->
-
-	<label class="btn btn-primary" style="margin-top:3px">  <span class="glyphicon glyphicon-cloud-upload"></span> Import<input type="file" id="importSVG" style="display: none;">     </label>
-
-</div>
-
-<!--<div class="col-xs-12" style="height:100px; "></div>		-->
-<output id="list"></output>
-
-
-<!--http://plugins.krajee.com/file-input#installation-->  <!--bu eklenebilir daha sonra		-->
-<!--file:///Users/mehmetakifakkus/Downloads/kartik-v-bootstrap-fileinput-a34efc2/examples/index.html		-->
-
-<!--
+            <!--
 <div class="btn-group" role="group">
 
 <button onclick="decreaseWidth()" class="btn btn-lg"><span class="glyphicon glyphicon-minus"></span></button>
 <button onclick="increaseWidth()" class="btn btn-lg"><span class="glyphicon glyphicon-plus"></span></button>
 </div>
 -->
+          </div>
+        </div>
 
-		
-</div>
-</div>
-	  
-	  
-<div class="col-md-10">	
-	
-	<br>
-	<canvas id="myCanvas0" class = "canvasPen" height="1200" width="1170"></canvas>
-</div>
+        <div class="col-md-10">
+          <br />
+          <canvas
+            id="myCanvas0"
+            class="canvasPen"
+            height="1200"
+            width="1170"
+          ></canvas>
+        </div>
 
-    <!-- Define inlined PaperScript associate it with myCanvas -->
+        <!-- Define inlined PaperScript associate it with myCanvas -->
+      </div>
     </div>
-	</div>
 
-
-	    <footer class="footer">
+    <footer class="footer">
       <div class="container">
-		  
-		<br><br>
-        <p class="text-muted">This app is developed by 
-            <a href="http://www.ceng.metu.edu.tr/~akifakkus/doku.php"  target="_blank">Mehmet Akif AKKUS</a> using paper.js and filesaver.js.
+        <br /><br />
+        <p class="text-muted">
+          This app is developed by
+          <a
+            href="http://www.ceng.metu.edu.tr/~akifakkus/doku.php"
+            target="_blank"
+            >Mehmet Akif AKKUS</a
+          >
+          using paper.js and filesaver.js.
         </p>
-        <p class="text-muted">Middle East Technical University. Computer Engineering Department</p>  
-          
+        <p class="text-muted">
+          Middle East Technical University. Computer Engineering Department
+        </p>
       </div>
     </footer>
-	
-</body>
+  </body>
 
-	<script>
-	function rightclick() {
-		var rightclick;
-		var e = window.event;
-		if (e.which) rightclick = (e.which == 3);
-		else if (e.button) rightclick = (e.button == 2);
-		console.log(rightclick); // true or false, you can trap right click here by if comparison
-	}
-	</script>
-	
-	<!--https://github.com/eligrey/FileSaver.js	-->
-    <script async="" src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"></script>
-    <script async="" src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"></script>
-    
-    <script type="text/paperscript" src="js/app.js" canvas="myCanvas0"></script>
+  <script>
+    function rightclick() {
+      var rightclick;
+      var e = window.event;
+      if (e.which) rightclick = e.which == 3;
+      else if (e.button) rightclick = e.button == 2;
+      console.log(rightclick); // true or false, you can trap right click here by if comparison
+    }
+  </script>
 
-<svg id = "polygons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="900" height="10" visibility="hidden">
+  <!--https://github.com/eligrey/FileSaver.js	-->
+  <script
+    async=""
+    src="https://cdn.rawgit.com/eligrey/canvas-toBlob.js/f1a01896135ab378aa5c0118eadd81da55e698d8/canvas-toBlob.js"
+  ></script>
+  <script
+    async=""
+    src="https://cdn.rawgit.com/eligrey/FileSaver.js/e9d941381475b5df8b7d7691013401e171014e89/FileSaver.min.js"
+  ></script>
 
-	<g id="star">    
-		<path d="M 333.547 110.616 L 376.019 223.374 L 505.349 225.806 L 402.268 297.927 L 439.726 412.188 L 333.547 344.003 L 227.368 412.188 L 264.826 297.927 L 161.745 225.806 L 291.075 223.374 Z" data-bx-shape="star 333.547 277.321 180.643 166.705 0.4 5 1@f58dba71" style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 2; "></path>
-	</g>
+  <script type="text/paperscript" src="js/app.js" canvas="myCanvas0"></script>
 
-	<g id="square">
-		<path d="M 100 100 H 350 V 350 H 100 V 100 Z" data-bx-shape="rect 150.596 179.275 226.592 226.592 0 0 0 0 1@02fc28bb" style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 2"></path>
-	</g>
+  <svg
+    id="polygons"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    width="900"
+    height="10"
+    visibility="hidden"
+  >
+    <g id="star">
+      <path
+        d="M 333.547 110.616 L 376.019 223.374 L 505.349 225.806 L 402.268 297.927 L 439.726 412.188 L 333.547 344.003 L 227.368 412.188 L 264.826 297.927 L 161.745 225.806 L 291.075 223.374 Z"
+        data-bx-shape="star 333.547 277.321 180.643 166.705 0.4 5 1@f58dba71"
+        style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 2"
+      ></path>
+    </g>
 
-	<g id="triangle_set">
-		<path d="M 680 330 L 230 330 L 300 505 L 353 380 L 410 505 L 461.436 380 L 510 505 L 560 380 L 613.147 505 Z" style="fill: none; stroke-width: 2" data-bx-origin="0 Infinity"></path>
-	</g>
+    <g id="square">
+      <path
+        d="M 100 100 H 350 V 350 H 100 V 100 Z"
+        data-bx-shape="rect 150.596 179.275 226.592 226.592 0 0 0 0 1@02fc28bb"
+        style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 2"
+      ></path>
+    </g>
 
-	<g id="arbitrary1" >
-		<path d="M 358.79 225.54 L 427.471 273.365 L 369.637 327.132 L 447.776 338.998 L 409.174 452.863 L 371.688 452.863 L 322.828 359.203 L 273.968 452.863 L 238.557 452.863 L 204.321 351.875 L 287.419 325.559 L 218.357 274.69 L 291.344 223.866 L 325.42 304.555 Z" style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 2;" data-bx-origin="0 0"></path>
-	</g>
+    <g id="triangle_set">
+      <path
+        d="M 680 330 L 230 330 L 300 505 L 353 380 L 410 505 L 461.436 380 L 510 505 L 560 380 L 613.147 505 Z"
+        style="fill: none; stroke-width: 2"
+        data-bx-origin="0 Infinity"
+      ></path>
+    </g>
 
-</svg>
-
-
-	
+    <g id="arbitrary1">
+      <path
+        d="M 358.79 225.54 L 427.471 273.365 L 369.637 327.132 L 447.776 338.998 L 409.174 452.863 L 371.688 452.863 L 322.828 359.203 L 273.968 452.863 L 238.557 452.863 L 204.321 351.875 L 287.419 325.559 L 218.357 274.69 L 291.344 223.866 L 325.42 304.555 Z"
+        style="fill: none; stroke: rgb(0, 0, 0); stroke-width: 2"
+        data-bx-origin="0 0"
+      ></path>
+    </g>
+  </svg>
 </html>
